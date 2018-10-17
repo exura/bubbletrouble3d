@@ -9,16 +9,8 @@ public class raycastShooter : MonoBehaviour {
 
 	public Camera cam;
 
-	public Text txt;
-
 	// Use this for initialization
 	void Start () {
-		txt = GetComponent<Text> ();
-		if (txt != null) {
-			print ("1");
-		} else {
-			print ("0");
-		}
 	}
 	
 	// Update is called once per frame
@@ -39,7 +31,10 @@ public class raycastShooter : MonoBehaviour {
 		string hitname = hit.transform.name;
 		if (hitname.Equals ("Ball", System.StringComparison.Ordinal)) {
 			print("1");
-			txt.text = "Raycast Info: \n Ball hit! \n Range: ";
+
+			print ("Raycast Info:");
+			print ("Ball hit!");
+			print("Range:");
 		}
 
 		}
