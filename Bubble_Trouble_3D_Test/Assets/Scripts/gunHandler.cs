@@ -36,7 +36,7 @@ public class gunHandler : MonoBehaviour {
 			Debug.Log(hit.transform.name);
 		}
 
-		string hitname = hit.transform.name;
+		//string hitname = hit.transform.name;
 		//if (hitname.Equals ("Ball", System.StringComparison.Ordinal)) {
 			//print("1");
 			//txt.text = "Raycast Info: \n Ball hit! \n Range: ";
