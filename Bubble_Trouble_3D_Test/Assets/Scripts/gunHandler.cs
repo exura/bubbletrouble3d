@@ -25,8 +25,8 @@ public class gunHandler : MonoBehaviour {
 
 	{
      	bullet.Play ();
-		bullet.transform.parent = cam.transform;
-		bullet.transform.localPosition = new Vector3(0,0,7);
+		//bullet.transform.parent = cam.transform;
+		//bullet.transform.localPosition = new Vector3(0,0,7);
 		bullet.transform.parent = null;
 		bullet.transform.forward = cam.transform.forward;
 
