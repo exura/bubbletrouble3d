@@ -13,4 +13,8 @@ public class ballBehaviour : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	public void Explode() {
+		Debug.Log ("Ball will explode!");
+	}
 }

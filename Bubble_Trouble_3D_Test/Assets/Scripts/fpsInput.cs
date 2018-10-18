@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class fpsInput : MonoBehaviour {
 
+	[SerializeField] private GameObject bulletPrefab;
+	private GameObject _bullet;
+
 	public float speed = 6.0f;
 	public float gravity = -9.8f;
 
@@ -34,6 +37,12 @@ public class fpsInput : MonoBehaviour {
 
 		if (Input.GetKeyDown ("escape"))
 			Cursor.lockState = CursorLockMode.None; //enable mouse /GETAWAY!!
+
+		if (Input.GetButtonDown ("Fire1")) {
+			_bullet = Instantiate (bulletPrefab) as GameObject;
+			_bullet.transform.position = transform.TransformPoint (Vector3.forward * 1.5f);
+			_bullet.transform.rotation = transform.rotation;
+		}
 
 	}
 }
