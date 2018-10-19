@@ -47,7 +47,10 @@ public class fpsInput : MonoBehaviour {
 			Rigidbody temporaryRigidBody;
 			temporaryRigidBody = temporaryBulletHandler.GetComponent<Rigidbody> ();
 
-			temporaryRigidBody.AddForce (transform.forward * bulletForce);
+			Vector3 temporaryVector;
+			temporaryVector = _charController.velocity;
+
+			temporaryRigidBody.AddForce (temporaryVector + transform.forward * bulletForce);
 
 			Destroy (temporaryBulletHandler, 10.0f);
 		}
