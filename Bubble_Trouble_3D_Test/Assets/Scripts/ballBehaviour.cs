@@ -10,7 +10,7 @@ public class ballBehaviour : MonoBehaviour {
 
 	private bool active = true;
 
-	private Rigidbody _rigidbody;
+	public Rigidbody _rigidbody;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +23,8 @@ public class ballBehaviour : MonoBehaviour {
 		
 	}
 
-	void Push(Vector3 push) {
+	public void Push(Vector3 push) {
+		Debug.Log (push.ToString ());
 		_rigidbody.AddForce (push);
 	}
 

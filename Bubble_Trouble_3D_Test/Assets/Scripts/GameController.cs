@@ -58,9 +58,10 @@ public class GameController : MonoBehaviour {
 
 			if (!balls [i].GetComponent<ballBehaviour> ().Active) {
 				Vector3 tempPos = balls [i].transform.position;
+				Vector3 tempVel = balls [i].GetComponent<Rigidbody>().velocity;
 				Destroy (balls [i]);
 				balls.RemoveAt (i);
-				Spawn (tempPos);
+				Spawn (tempPos, tempVel);
 			}
 		}
 		
@@ -72,8 +73,16 @@ public class GameController : MonoBehaviour {
 
 	}
 
-	void Spawn(Vector3 pos) {
-		balls.Add(Instantiate (ballPrefab, (pos) + Vector3.right*3, floor.transform.rotation) as GameObject);
-		balls.Add(Instantiate (ballPrefab, (pos) + Vector3.right*-3, floor.transform.rotation) as GameObject);
+	void Spawn(Vector3 pos, Vector3 vel) {
+		GameObject tmpBall = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
+		balls.Add(tmpBall);
+		tmpBall.GetComponent<Rigidbody> ().velocity = vel;
+		tmpBall.GetComponent<ballBehaviour> ().Push (Vector3.right*1000+Vector3.up*5000);
+
+		GameObject tmpBall2 = Instantiate (ballPrefab, (pos) + Vector3.right * -3, floor.transform.rotation) as GameObject;
+		//(tmpBall.GetComponent<ballBehaviour> ()).Push (Vector3.right * -300);
+		balls.Add(tmpBall2);
+		tmpBall2.GetComponent<Rigidbody> ().velocity = vel;
+		tmpBall2.GetComponent<ballBehaviour> ().Push (Vector3.right*-1000+Vector3.up*5000);
 	}
 }
