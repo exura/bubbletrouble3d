@@ -43,15 +43,24 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		foreach (GameObject ball in balls) {
+		/*foreach (GameObject ball in balls) {
 
 			ballBehaviour behav = ball.GetComponent<ballBehaviour> ();
 
 			if (ball != null) {
 				if (!behav.Active) {
-					Spawn (ball.transform.position);
-					Destroy (ball);
 				}
+
+			}
+		}*/
+
+		for (int i = balls.Count - 1; i>=0; i--) {
+
+			if (!balls [i].GetComponent<ballBehaviour> ().Active) {
+				Vector3 tempPos = balls [i].transform.position;
+				Destroy (balls [i]);
+				balls.RemoveAt (i);
+				Spawn (tempPos);
 			}
 		}
 		
