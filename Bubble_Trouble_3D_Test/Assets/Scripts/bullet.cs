@@ -15,7 +15,7 @@ public class bullet : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		ballBehaviour ball = other.GetComponent<ballBehaviour> ();
 		if (ball != null) {
-			ball.Explode ();
+			ball.Active = false;
 		}
 		Destroy (this.gameObject);
 	}

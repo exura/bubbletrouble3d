@@ -8,6 +8,8 @@ public class ballBehaviour : MonoBehaviour {
 
 	private int level = 1;
 
+	private bool active = true;
+
 	private Rigidbody _rigidbody;
 
 	// Use this for initialization
@@ -38,5 +40,15 @@ public class ballBehaviour : MonoBehaviour {
 				level = value;
 			}
 		}
+	}
+
+	public bool Active {
+		get {
+			return active;
+		}
+		set {
+			active = value;
+		}
+
 	}
 }
