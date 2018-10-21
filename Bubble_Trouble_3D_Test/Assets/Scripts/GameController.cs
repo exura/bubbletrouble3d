@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
 
 	private float _floorX;
 	private float _floorZ;
+	private Vector3 scale = new Vector3(4f, 4f, 4f);
 
 	public Text scoreText;
 	private int score;
@@ -59,6 +60,8 @@ public class GameController : MonoBehaviour {
 			if (!balls [i].GetComponent<ballBehaviour> ().Active) {
 				Vector3 tempPos = balls [i].transform.position;
 				Vector3 tempVel = balls [i].GetComponent<Rigidbody>().velocity;
+
+
 				Destroy (balls [i]);
 				balls.RemoveAt (i);
 				Spawn (tempPos, tempVel);
@@ -74,15 +77,23 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Spawn(Vector3 pos, Vector3 vel) {
+		print (scale);
+		scale = scale / 2.0f;
 		GameObject tmpBall = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
 		balls.Add(tmpBall);
 		tmpBall.GetComponent<Rigidbody> ().velocity = vel;
 		tmpBall.GetComponent<ballBehaviour> ().Push (Vector3.right*1000+Vector3.up*5000);
+		tmpBall.transform.localScale = scale;
+		print (tmpBall.transform.localScale);
 
 		GameObject tmpBall2 = Instantiate (ballPrefab, (pos) + Vector3.right * -3, floor.transform.rotation) as GameObject;
 		//(tmpBall.GetComponent<ballBehaviour> ()).Push (Vector3.right * -300);
 		balls.Add(tmpBall2);
 		tmpBall2.GetComponent<Rigidbody> ().velocity = vel;
 		tmpBall2.GetComponent<ballBehaviour> ().Push (Vector3.right*-1000+Vector3.up*5000);
+		tmpBall2.transform.localScale = scale;
+		print (tmpBall2.transform.localScale);
+
+
 	}
 }

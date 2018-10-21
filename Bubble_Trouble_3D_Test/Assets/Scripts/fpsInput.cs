@@ -14,6 +14,7 @@ public class fpsInput : MonoBehaviour {
 
 	public float speed = 6.0f;
 	public float gravity = -9.8f;
+	public Camera cam;
 
 	private CharacterController _charController;
 
@@ -30,10 +31,10 @@ public class fpsInput : MonoBehaviour {
 		float deltaZ = Input.GetAxis ("Vertical") * speed;
 		Vector3 movement = new Vector3 (deltaX, 0, deltaZ);
 		movement = Vector3.ClampMagnitude (movement, speed);
-		movement.y = gravity;
+		//movement.y = gravity; //Commenting out for now /S
 
 		movement *= Time.deltaTime;
-		movement = transform.TransformDirection (movement);
+		movement = cam.transform.TransformDirection (movement); //Always use CAMERA as direction of movement
 		_charController.Move (movement);
 
 		if (Input.GetKeyDown ("escape"))
