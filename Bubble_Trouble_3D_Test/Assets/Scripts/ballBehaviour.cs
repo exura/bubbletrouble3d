@@ -24,7 +24,6 @@ public class ballBehaviour : MonoBehaviour {
 	}
 
 	public void Push(Vector3 push) {
-		Debug.Log (push.ToString ());
 		_rigidbody.AddForce (push);
 	}
 

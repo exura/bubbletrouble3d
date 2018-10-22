@@ -10,7 +10,7 @@ public class fpsInput : MonoBehaviour {
 
 	[SerializeField] private GameObject bulletEmitter;
 	[SerializeField] private GameObject bulletPrefab;
-	public float bulletForce = 50;
+	public float bulletForce = 100;
 
 	public float speed = 6.0f;
 	public float gravity = -9.8f;

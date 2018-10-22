@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour {
 
-	public float speed = 2.0f;
+	public float speed = 5.0f;
 	
 	// Update is called once per frame
 	void Update () {
