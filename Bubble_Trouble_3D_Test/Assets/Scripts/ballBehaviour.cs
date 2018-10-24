@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// the ball needs a rigidbody to work, so require it
 [RequireComponent(typeof(Rigidbody))]
 
 public class ballBehaviour : MonoBehaviour {

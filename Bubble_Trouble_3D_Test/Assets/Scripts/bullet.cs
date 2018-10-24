@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour {
 
-	public float speed = 5.0f;
-	
-	// Update is called once per frame
-	void Update () {
-		transform.Translate (0, 0, speed * Time.deltaTime);
-		
-	}
-
+	// if bullet collides with another object
 	void OnTriggerEnter(Collider other) {
 		ballBehaviour ball = other.GetComponent<ballBehaviour> ();
 		if (ball != null) {
 			ball.Active = false;
 		}
+
+		// destroy the bullet
 		Destroy (this.gameObject);
 	}
 }
