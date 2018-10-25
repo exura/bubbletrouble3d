@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DelegatesAndEvents : MonoBehaviour {
 
+	// source: https://www.youtube.com/watch?v=ihIOVj9t0_E
+
 	//1. Define delegate and events
 
 	// first define the delegate (a container for a function)

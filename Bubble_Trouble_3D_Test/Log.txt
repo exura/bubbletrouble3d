@@ -1,0 +1,10 @@
+Commit 31:
+*Added reference to the source video for delegates and events
+*Filled out the log
+
+Commit 30: 
+
+*Implemented delegates and events to handle balls exploding
+*Implemented methods to handle balls exploding in GameController
+*Attached DelegatesAndEvents-script to GameController to remember it is used
+*Started using levels on balls to give score
