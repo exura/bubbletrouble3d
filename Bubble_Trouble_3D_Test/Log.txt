@@ -1,3 +1,7 @@
+Commit 33:
+*Added textures folder.
+*Added test-texture.
+
 Commit 32:
 *Added event for when player is hit by ball.
 *Updated GameController script with subscription and method for when player is hit.
