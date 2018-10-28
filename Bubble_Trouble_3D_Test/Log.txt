@@ -1,3 +1,11 @@
+Commit 32:
+*Added event for when player is hit by ball.
+*Updated GameController script with subscription and method for when player is hit.
+*Added Capsule Collider to Player for trigger.
+*Added playerTrigger script to check for Collider (tag = "Ball")
+*Added Game Over Text (duplicate of Wintext)
+
+
 Commit 31:
 *Added reference to the source video for delegates and events
 *Filled out the log

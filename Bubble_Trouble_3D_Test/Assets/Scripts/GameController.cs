@@ -11,11 +11,16 @@ public class GameController : MonoBehaviour {
 	// holds reference to the floor
 	[SerializeField] private GameObject floor;
 
+	//Reference to player.
+	[SerializeField] private GameObject player;
+
 	// reference to the score UI-element
 	public Text scoreText;
 
 	// reference to the win UI-element
 	public Text winText;
+
+	public Text gameOverText;
 
 	// how high the balls should spawn with respect to the floor
 	public float ballSpawnHeight = 10;
@@ -54,11 +59,14 @@ public class GameController : MonoBehaviour {
 		// Tell gamecontroller to subscribe for the event that a ball is spawned
 		// IMPORTANT: YOU ALSO NEED THE SAME IN AN ONDISABLE-FUNCTION OTHERWISE YOU WILL END UP WITH MEMORY LEAKS!!
 		DelegatesAndEvents.onBallDestroyed += BallIsDestroyed; // + sign means we subscribe to the event, BallIsDestroyed is the method this class has implemented to handle the event onBallDestroyed
+		DelegatesAndEvents.hitPlayer += playerIsHit; //Subscription to hitPlayer
+	
 	}
 		
 	// This removes the subscribing if gamecontroller is disabled or inactive, to prevent memoryleaks
 	void OnDisable() {
 		DelegatesAndEvents.onBallDestroyed -= BallIsDestroyed; // - sign means we unsubscribe to the event
+		DelegatesAndEvents.hitPlayer -= playerIsHit;
 	}
 
 	// Set the score-text given that we are adding points
@@ -75,6 +83,11 @@ public class GameController : MonoBehaviour {
 	// In case the player wins, the wintext is displayed
 	void SetWinText() {
 		winText.enabled = true;
+	}
+
+	// In case the player is hit by a ball, the game over text is displayed
+	void SetGameOverText() {
+		gameOverText.enabled = true;
 	}
 
 	// this is the method implemented to handle the event onBallDestroyed
@@ -101,6 +114,14 @@ public class GameController : MonoBehaviour {
 		if (ballsLeft == 0) {
 			SetWinText ();
 		}
+	}
+
+
+	// Method for when player is hit, subscribed to event hitPlayer
+	void playerIsHit(GameObject player) {
+		SetGameOverText ();
+		Time.timeScale = 0f; //Freezes game.
+
 	}
 
 	// Spawn method handles spawning of new balls
