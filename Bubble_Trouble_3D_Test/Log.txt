@@ -1,3 +1,15 @@
+Commmit 34:
+*Ballbehaviour.cs
+	- Added method to change texture of ball (L73)
+*GameController.cs
+	- Added random generator for ball 1 and ball 2 inside spawn Method (L150;L175)
+	- If RNG hits over given value ball will change textue and multiply its level.
+*_Texture
+	-Created a bonus ball texture ("Ball_Smiley.psd/png").
+
+BUG: Points by LEVEL doesnt seem to be working atm. Prints show that Level is always one in Destroy method.
+Left it here - priority check at next pull!!!
+
 Commit 33:
 *Added textures folder.
 *Added test-texture.

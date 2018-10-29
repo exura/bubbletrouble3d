@@ -14,6 +14,9 @@ public class GameController : MonoBehaviour {
 	//Reference to player.
 	[SerializeField] private GameObject player;
 
+	// Hold multiplier.
+	[SerializeField] private int bonusMultiplier = 3; // Multiplying level with this value if bonus ball.
+
 	// reference to the score UI-element
 	public Text scoreText;
 
@@ -37,6 +40,9 @@ public class GameController : MonoBehaviour {
 	// holds how many balls left -> once it reaches zero the game is won
 	private int ballsLeft;
 
+	private int rngBonus; // Holds reference to RNG
+
+	public int bonusPercentage = 2; // Threshold for bonus ball (probability that a ball becomes a bonus ball)
 
 	// Use this for initialization
 	void Start () {
@@ -97,6 +103,7 @@ public class GameController : MonoBehaviour {
 		Vector3 tempVel = ball.GetComponent<Rigidbody> ().velocity;
 		Vector3 tempScale = ball.transform.localScale;
 		int tempLevel = ball.GetComponent<ballBehaviour> ().Level;
+		print ("Ball DESTROYED LEVEL" + tempLevel);
 
 		// then destroy the ball so we don't accidentally spawn the new balls inside the ball being destroyed
 		Destroy (ball);
@@ -134,6 +141,21 @@ public class GameController : MonoBehaviour {
 			GameObject tmpBall = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
 			// assign it a level higher
 			tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
+
+
+			// Transform into bonus ball if threshold is reached.
+
+			rngBonus = Random.Range (1, 100);
+
+			if (rngBonus >= 100-bonusPercentage) { // If threshold is set to 2% in inspector, RNG must give over 98 in value to create a bonus ball.
+				tmpBall.GetComponent<ballBehaviour> ().bonusBall ();
+				int multLvl = tmpBall.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
+				print ("ball1 multLvl = " + multLvl); // Seems correct
+				tmpBall.GetComponent<ballBehaviour> ().Level = multLvl;
+				print ("ball1 LEVEL = " + tmpBall.GetComponent<ballBehaviour> ().Level); // Seems correct
+
+			}
+
 			// scale it with modifier
 			tmpBall.transform.localScale = sc / ballSizeModifier;
 			// give it the original balls velocity
@@ -145,6 +167,22 @@ public class GameController : MonoBehaviour {
 			GameObject tmpBall2 = Instantiate (ballPrefab, (pos) + Vector3.right * -3, floor.transform.rotation) as GameObject;
 			// assign it a level higher
 			tmpBall2.GetComponent<ballBehaviour> ().Level = lvl + 1;
+
+			// Check for bonus and if bonusball multiply the points.
+			rngBonus = Random.Range (1, 100);
+			print ("RNG: " + rngBonus);
+			//print (rngBonus);
+
+			if (rngBonus >= (100-bonusPercentage)) { // If threshold is set to 2% in inspector, RNG must give over 98 in value to create a bonus ball.
+				print("Entered" + (100-bonusPercentage));
+				tmpBall2.GetComponent<ballBehaviour> ().bonusBall ();
+				int multLvl = tmpBall2.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
+				//print ("ball2 multLvl = " + multLvl); 
+				tmpBall2.GetComponent<ballBehaviour> ().Level = multLvl;
+				//print ("ball2 LEVEL = " + tmpBall2.GetComponent<ballBehaviour> ().Level);
+			}
+
+
 			// scale it with modifier
 			tmpBall2.transform.localScale = sc / ballSizeModifier;
 			// give it the original balls velocity

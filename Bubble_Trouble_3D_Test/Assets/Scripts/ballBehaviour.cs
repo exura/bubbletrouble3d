@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 // the ball needs a rigidbody to work, so require it
 [RequireComponent(typeof(Rigidbody))]
 
@@ -10,17 +11,35 @@ public class ballBehaviour : MonoBehaviour {
 	// holds the level of the ball
 	private int level;
 
+	// Holds random number for bonus ball
+	//private int rngBonus;
+
+	//Define bonus-texture
+	public Texture bonusTexture;
+
 	// holds the reference to the balls rigidbody
 	public Rigidbody _rigidbody;
 
+	// Holds reference to renderer
+	public Renderer rend;
+
+
+
 	// Use this for initialization
 	void Start () {
+
+
 
 		// initialise the level
 		level = 1;
 
 		// and reference the rigidbody
 		_rigidbody = GetComponent<Rigidbody> ();
+
+		rend = GetComponent<Renderer> ();
+
+
+
 	}
 	
 	// make a public method that can add force to the rigidbody
@@ -45,5 +64,15 @@ public class ballBehaviour : MonoBehaviour {
 		{
 			level = value;
 		}
+	}
+
+
+
+
+	// Changing texture on ball
+	public void bonusBall() {
+
+			rend.material.mainTexture = bonusTexture; // Change texture to assigned bonusTexture (inspector)
+
 	}
 }

@@ -111,7 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e0e311166b33c4ebc3d1d23354709a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bonusTexture: {fileID: 2800000, guid: 7460645ea143bb8459117e62f633bc71, type: 3}
   _rigidbody: {fileID: 54137125868527728}
+  rend: {fileID: 23246103661668834}
 --- !u!135 &135588806516012404
 SphereCollider:
   m_ObjectHideFlags: 1

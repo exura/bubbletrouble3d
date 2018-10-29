@@ -1779,12 +1779,14 @@ MonoBehaviour:
   ballPrefab: {fileID: 1375186292786166, guid: 1804bb55476316c48932576ec5b3a4fb, type: 2}
   floor: {fileID: 158568062}
   player: {fileID: 913153690}
+  bonusMultiplier: 3
   scoreText: {fileID: 44270639}
   winText: {fileID: 1208476404}
   gameOverText: {fileID: 1560203617}
   ballSpawnHeight: 10
   ballSizeModifier: 2
   ballSizeMin: 0.5
+  bonusPercentage: 2
 --- !u!4 &1522069492
 Transform:
   m_ObjectHideFlags: 0
