@@ -1,3 +1,6 @@
+Commit 37
+* Minor changes
+
 Commit 36
 * Prefabs
 	- Added explosion prefab (standard asset)

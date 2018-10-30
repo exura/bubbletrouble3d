@@ -14,14 +14,14 @@ public class ballBehaviour : MonoBehaviour {
 	// Holds random number for bonus ball
 	//private int rngBonus;
 
-	//Define bonus-texture
-	public Texture bonusTexture;
+	//Define bonus-texture OBSOLETE but keep for now
+	//public Texture bonusTexture; 
 
 	// holds the reference to the balls rigidbody
 	public Rigidbody _rigidbody;
 
-	// Holds reference to renderer
-	public Renderer rend;
+	// Holds reference to renderer OBSOLETE but keep for now
+	//public Renderer rend;
 
 
 
@@ -36,7 +36,7 @@ public class ballBehaviour : MonoBehaviour {
 		// and reference the rigidbody
 		_rigidbody = GetComponent<Rigidbody> ();
 
-		rend = GetComponent<Renderer> ();
+		//rend = GetComponent<Renderer> ();
 
 
 
@@ -63,16 +63,17 @@ public class ballBehaviour : MonoBehaviour {
 		set 
 		{
 			level = value;
+			print("BALLBEHAVIOUR LEVEL" + level);
 		}
 	}
 
 
 
 
-	// Changing texture on ball
-	public void bonusBall() {
-
-			rend.material.mainTexture = bonusTexture; // Change texture to assigned bonusTexture (inspector)
-
-	}
+	// Changing texture on ball OBSOLETE but keep for now
+//	public void bonusBall() {
+//
+//			rend.material.mainTexture = bonusTexture; // Change texture to assigned bonusTexture (inspector)
+//
+//	}
 }

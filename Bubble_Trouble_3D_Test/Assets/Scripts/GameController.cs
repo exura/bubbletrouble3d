@@ -109,6 +109,7 @@ public class GameController : MonoBehaviour {
 		Vector3 tempVel = ball.GetComponent<Rigidbody> ().velocity;
 		Vector3 tempScale = ball.transform.localScale;
 		int tempLevel = ball.GetComponent<ballBehaviour> ().Level;
+		print ("GET LEVEL OF BALL" + ball.GetComponent<ballBehaviour> ().Level);
 		print ("Ball DESTROYED LEVEL" + tempLevel);
 
 		// then destroy the ball so we don't accidentally spawn the new balls inside the ball being destroyed
@@ -116,8 +117,10 @@ public class GameController : MonoBehaviour {
 
 		GameObject explosion = Instantiate (explo, (tempPos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
 
+		print ("DESTROYED NR: " + ballsLeft);
 		// countdown the number of balls alive
 		ballsLeft--;
+
 
 		// send in the points equal to the level of the ball
 		SetText (tempLevel);
@@ -128,6 +131,7 @@ public class GameController : MonoBehaviour {
 		// if no new balls are spawned, we have won the game
 		if (ballsLeft == 0) {
 			SetWinText ();
+			Time.timeScale = 0f; //Freezes game.
 		}
 	}
 
@@ -144,7 +148,7 @@ public class GameController : MonoBehaviour {
 
 
 
-
+		print ("SPAWN LVL SENT IN" + lvl);
 		// If the newly spawned ball is smaller than the minimum size allowed, it will skip the ballspawning
 		if (sc.x / ballSizeModifier >= ballSizeMin) {
 
@@ -160,9 +164,11 @@ public class GameController : MonoBehaviour {
 				tmpBall = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
 				// assign it a level higher
 				tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
+				print ("LEVEL OF BALL IN SPAWN" + tmpBall.GetComponent<ballBehaviour> ().Level);
 			} else {
 				tmpBall = Instantiate (ballBonusPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
-				int multLvl = tmpBall.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
+				int multLvl = (tmpBall.GetComponent<ballBehaviour> ().Level + 1) * bonusMultiplier;
+				print ("multLvl" + multLvl);
 				tmpBall.GetComponent<ballBehaviour> ().Level = multLvl;
 			}
 
@@ -191,7 +197,8 @@ public class GameController : MonoBehaviour {
 				tmpBall2.GetComponent<ballBehaviour> ().Level = lvl + 1;
 			} else {
 				tmpBall2 = Instantiate (ballBonusPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
-				int multLvl = tmpBall.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
+				int multLvl = (tmpBall2.GetComponent<ballBehaviour> ().Level +1) * bonusMultiplier;
+				print ("multLvl" + multLvl);
 				tmpBall2.GetComponent<ballBehaviour> ().Level = multLvl;
 			}
 
