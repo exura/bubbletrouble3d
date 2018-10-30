@@ -7,6 +7,7 @@ public class bullet : MonoBehaviour {
 	// if bullet collides with another object
 	void OnTriggerEnter(Collider other) {
 
+
 		// check if the other object is a ball (or specifically if it has the ball-behaviour attached to it
 		ballBehaviour ball = other.GetComponent<ballBehaviour> ();
 
@@ -17,7 +18,9 @@ public class bullet : MonoBehaviour {
 			ball.Explode();
 		}
 
-		// either way; destroy the bullet
-		Destroy (this.gameObject);
+		if (other.tag != "Player") {
+				// either way; destroy the bullet
+				Destroy (this.gameObject);
+		}
 	}
 }

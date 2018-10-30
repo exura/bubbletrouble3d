@@ -1,3 +1,6 @@
+Commit 40
+* Final version at meeting 30/10
+
 Commit 39
 * Solved bug
 * BallBehaviour.cs
