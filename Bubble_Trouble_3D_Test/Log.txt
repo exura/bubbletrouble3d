@@ -1,3 +1,14 @@
+Commit 35:
+* Textures
+	- Added texture for WALL FLOOR GUN
+* Prefabs
+	- Added prefab (own 3D models) for BALL (Red version) & BONUS BALL (Black version)
+	- Bullets are scaled up and different color (blue)
+* GameController
+	- Remade so bonus ball is changed prefab instead of changed texture
+
+BUG: Points STILL DONT WORK. (See Commit 34)
+
 Commmit 34:
 *Ballbehaviour.cs
 	- Added method to change texture of ball (L73)

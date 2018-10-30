@@ -1,0 +1,143 @@
+fileFormatVersion: 2
+guid: 2bc9816e854a23a4681bffa1af3de63b
+timeCreated: 1540901787
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Camera
+    100004: Circle
+    100006: Circle.001
+    100008: Circle.002
+    100010: Circle.004
+    100012: Circle.005
+    100014: Lamp
+    100016: Sphere
+    400000: //RootNode
+    400002: Camera
+    400004: Circle
+    400006: Circle.001
+    400008: Circle.002
+    400010: Circle.004
+    400012: Circle.005
+    400014: Lamp
+    400016: Sphere
+    2000000: Camera
+    2100000: Jewel
+    2100002: Bends
+    2100004: Material.001
+    2300000: Circle
+    2300002: Circle.001
+    2300004: Circle.002
+    2300006: Circle.004
+    2300008: Circle.005
+    2300010: Sphere
+    3300000: Circle
+    3300002: Circle.001
+    3300004: Circle.002
+    3300006: Circle.004
+    3300008: Circle.005
+    3300010: Sphere
+    4300000: Circle.005
+    4300002: Circle.004
+    4300004: Circle.002
+    4300006: Circle.001
+    4300008: Circle
+    4300010: Sphere
+    10800000: Lamp
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bends
+    second: {fileID: 2100000, guid: f69fc204ba4fbc44e9704d1abc26c26e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Jewel
+    second: {fileID: 2100000, guid: 9816076944e1d4c4e80fb51d5ed025e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: df1af4831e16f6f48a53ce474c6939d6, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

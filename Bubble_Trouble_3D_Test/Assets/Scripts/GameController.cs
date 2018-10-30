@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour {
 	// holds reference to the ballprefab
 	[SerializeField] private GameObject ballPrefab;
 
+	[SerializeField] private GameObject ballBonusPrefab;
+
 	// holds reference to the floor
 	[SerializeField] private GameObject floor;
 
@@ -134,27 +136,38 @@ public class GameController : MonoBehaviour {
 	// Spawn method handles spawning of new balls
 	void Spawn(Vector3 pos, Vector3 vel, Vector3 sc, int lvl) {
 
+
+
+
 		// If the newly spawned ball is smaller than the minimum size allowed, it will skip the ballspawning
 		if (sc.x / ballSizeModifier >= ballSizeMin) {
 
-			// spawn the first ball
-			GameObject tmpBall = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
-			// assign it a level higher
-			tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
-
 
 			// Transform into bonus ball if threshold is reached.
-
 			rngBonus = Random.Range (1, 100);
 
-			if (rngBonus >= 100-bonusPercentage) { // If threshold is set to 2% in inspector, RNG must give over 98 in value to create a bonus ball.
-				tmpBall.GetComponent<ballBehaviour> ().bonusBall ();
-				int multLvl = tmpBall.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
-				print ("ball1 multLvl = " + multLvl); // Seems correct
-				tmpBall.GetComponent<ballBehaviour> ().Level = multLvl;
-				print ("ball1 LEVEL = " + tmpBall.GetComponent<ballBehaviour> ().Level); // Seems correct
+			GameObject tmpBall;
+			GameObject tmpBall2;
 
+			// spawn the first ball
+			if (rngBonus <= 100 - bonusPercentage) {
+				tmpBall = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
+				// assign it a level higher
+				tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
+			} else {
+				tmpBall = Instantiate (ballBonusPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
+				int multLvl = tmpBall.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
+				tmpBall.GetComponent<ballBehaviour> ().Level = multLvl;
 			}
+
+
+			 // If threshold is set to 2% in inspector, RNG must give over 98 in value to create a bonus ball.
+				//tmpBall.GetComponent<ballBehaviour> ().bonusBall ();
+				//int multLvl = tmpBall.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
+				//print ("ball1 multLvl = " + multLvl); // Seems correct
+				
+				//print ("ball1 LEVEL = " + tmpBall.GetComponent<ballBehaviour> ().Level); // Seems correct
+
 
 			// scale it with modifier
 			tmpBall.transform.localScale = sc / ballSizeModifier;
@@ -164,24 +177,32 @@ public class GameController : MonoBehaviour {
 			tmpBall.GetComponent<ballBehaviour> ().Push (Vector3.right * 500 + Vector3.up * 2000);
 
 			// spawn the second ball
-			GameObject tmpBall2 = Instantiate (ballPrefab, (pos) + Vector3.right * -3, floor.transform.rotation) as GameObject;
-			// assign it a level higher
-			tmpBall2.GetComponent<ballBehaviour> ().Level = lvl + 1;
+
+			rngBonus = Random.Range (1, 100);
+			if (rngBonus <= 100 - bonusPercentage) {
+				tmpBall2 = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
+				// assign it a level higher
+				tmpBall2.GetComponent<ballBehaviour> ().Level = lvl + 1;
+			} else {
+				tmpBall2 = Instantiate (ballBonusPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
+				int multLvl = tmpBall.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
+				tmpBall2.GetComponent<ballBehaviour> ().Level = multLvl;
+			}
 
 			// Check for bonus and if bonusball multiply the points.
-			rngBonus = Random.Range (1, 100);
+
 			print ("RNG: " + rngBonus);
 			//print (rngBonus);
 
-			if (rngBonus >= (100-bonusPercentage)) { // If threshold is set to 2% in inspector, RNG must give over 98 in value to create a bonus ball.
-				print("Entered" + (100-bonusPercentage));
-				tmpBall2.GetComponent<ballBehaviour> ().bonusBall ();
-				int multLvl = tmpBall2.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
-				//print ("ball2 multLvl = " + multLvl); 
-				tmpBall2.GetComponent<ballBehaviour> ().Level = multLvl;
-				//print ("ball2 LEVEL = " + tmpBall2.GetComponent<ballBehaviour> ().Level);
-			}
-
+//			if (rngBonus >= (100-bonusPercentage)) { // If threshold is set to 2% in inspector, RNG must give over 98 in value to create a bonus ball.
+//				print("Entered" + (100-bonusPercentage));
+//				tmpBall2.GetComponent<ballBehaviour> ().bonusBall ();
+//				int multLvl = tmpBall2.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
+//				//print ("ball2 multLvl = " + multLvl); 
+//				tmpBall2.GetComponent<ballBehaviour> ().Level = multLvl;
+//				//print ("ball2 LEVEL = " + tmpBall2.GetComponent<ballBehaviour> ().Level);
+//			}
+//
 
 			// scale it with modifier
 			tmpBall2.transform.localScale = sc / ballSizeModifier;
