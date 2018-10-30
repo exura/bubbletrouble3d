@@ -1,3 +1,11 @@
+Commit 36
+* Prefabs
+	- Added explosion prefab (standard asset)
+* GameController.cs
+	- Instantiating explosion when ball is destroyed (L117)
+
+BUG: Points STILL DONT WORK. (See Commit 34)
+
 Commit 35:
 * Textures
 	- Added texture for WALL FLOOR GUN

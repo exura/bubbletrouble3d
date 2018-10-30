@@ -10,6 +10,10 @@ public class GameController : MonoBehaviour {
 
 	[SerializeField] private GameObject ballBonusPrefab;
 
+
+	// holds reference to the explosion
+	[SerializeField] private GameObject explo;
+
 	// holds reference to the floor
 	[SerializeField] private GameObject floor;
 
@@ -109,6 +113,8 @@ public class GameController : MonoBehaviour {
 
 		// then destroy the ball so we don't accidentally spawn the new balls inside the ball being destroyed
 		Destroy (ball);
+
+		GameObject explosion = Instantiate (explo, (tempPos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
 
 		// countdown the number of balls alive
 		ballsLeft--;

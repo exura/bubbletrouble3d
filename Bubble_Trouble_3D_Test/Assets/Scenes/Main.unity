@@ -325,9 +325,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.05
+  far clip plane: 100
+  field of view: 34
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1780,6 +1780,7 @@ MonoBehaviour:
   ballPrefab: {fileID: 1548841064537174, guid: 85e3f32798f5794478534c928fb1d1ac, type: 2}
   ballBonusPrefab: {fileID: 1341000957023182, guid: 61c9cd116c297fd46a7e288be32b56fb,
     type: 2}
+  explo: {fileID: 1259543497422840, guid: 6eb80915d51e48e40b73a2e61dae28a3, type: 2}
   floor: {fileID: 158568062}
   player: {fileID: 913153690}
   bonusMultiplier: 3
