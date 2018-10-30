@@ -9,7 +9,7 @@ using UnityEngine;
 public class ballBehaviour : MonoBehaviour {
 
 	// holds the level of the ball
-	private int level;
+	private int level = 1;
 
 	// Holds random number for bonus ball
 	//private int rngBonus;
@@ -31,7 +31,7 @@ public class ballBehaviour : MonoBehaviour {
 
 
 		// initialise the level
-		level = 1;
+		//level = 1;
 
 		// and reference the rigidbody
 		_rigidbody = GetComponent<Rigidbody> ();
@@ -58,7 +58,9 @@ public class ballBehaviour : MonoBehaviour {
 	public int Level {
 		get 
 		{
+			print ("GET METHOD RETURNS: " + level);
 			return level;
+
 		}
 		set 
 		{
