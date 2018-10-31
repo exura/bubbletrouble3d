@@ -17,6 +17,9 @@ public class GameController : MonoBehaviour {
 	// holds reference to the floor
 	[SerializeField] private GameObject floor;
 
+	// hold reference to one wall
+	[SerializeField] private GameObject wall;
+
 	//Reference to player.
 	[SerializeField] private GameObject player;
 
@@ -69,7 +72,7 @@ public class GameController : MonoBehaviour {
 		ballsLeft = 0;
 
 		// spawn the first ball
-		GameObject firstBall = Instantiate (ballPrefab, new Vector3 (floor.transform.position.x, floor.transform.position.y + ballSpawnHeight, floor.transform.position.z), floor.transform.rotation) as GameObject;
+		GameObject firstBall = Instantiate (ballPrefab, new Vector3 (floor.transform.position.x, floor.transform.position.y + ballSpawnHeight, floor.transform.position.z), Random.rotation) as GameObject;
 
 		//and update the balltracker that we have one ball now -- if this is forgotten we win immediately
 		ballsLeft++;
@@ -122,7 +125,7 @@ public class GameController : MonoBehaviour {
 		// then destroy the ball so we don't accidentally spawn the new balls inside the ball being destroyed
 		Destroy (ball);
 
-		GameObject explosion = Instantiate (explo, (tempPos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
+		GameObject explosion = Instantiate (explo,tempPos, floor.transform.rotation) as GameObject;
 
 		print ("DESTROYED NR: " + ballsLeft);
 		// countdown the number of balls alive
@@ -134,6 +137,8 @@ public class GameController : MonoBehaviour {
 
 		// spawn new balls
 		Spawn (tempPos, tempVel, tempScale, tempLevel);
+
+		Destroy (explosion, 5.0f);
 
 		// if no new balls are spawned, we have won the game
 		if (ballsLeft == 0) {
@@ -159,26 +164,77 @@ public class GameController : MonoBehaviour {
 
 		print ("SPAWN LVL SENT IN" + lvl);
 		// If the newly spawned ball is smaller than the minimum size allowed, it will skip the ballspawning
-		if (sc.x / ballSizeModifier >= ballSizeMin) {
+		if (sc.x / ballSizeModifier >= ballSizeMin && sc.y / ballSizeModifier >= ballSizeMin && sc.z / ballSizeModifier >= ballSizeMin) {
+
+			Vector3 invertVel = Vector3.zero;
 
 			for (int i = 0; i < nbrOfBallsPerSpawn; i++) {
 
 
 				// Transform into bonus ball if threshold is reached.
-				rngBonus = Random.Range (1, 100);
+				int rngBonus = Random.Range (1, 100);
 
 				GameObject tmpBall;
 
+				int xRand;
+				int zRand;
+
+				if (Random.Range (0, 100) <= 49) {
+					xRand = -1;
+				} else {
+					xRand = 1;
+				}
+
+				if (Random.Range (0, 100) <= 49) {
+					zRand = -1;
+				} else {
+					zRand = 1;
+				}
+
+				Vector3 tmpPos = new Vector3(xRand*Random.Range(sc.x / ballSizeModifier,sc.x / ballSizeModifier * 2.0f),Random.Range(sc.x,sc.x * 2.0f),zRand*Random.Range(sc.x / ballSizeModifier,sc.x / ballSizeModifier * 2.0f));
+
+				// If new random position is outside the room, then invert the random position so it's inside the room
+				if (tmpPos.x + pos.x > floor.transform.position.x + floor.transform.localScale.x / 2) {
+					print ("Xpos too high: " + (tmpPos.x+pos.x));
+					tmpPos.x -= Mathf.Abs(tmpPos.x);
+					print ("New xpos: " + (tmpPos.x+pos.x));
+				} else if (tmpPos.x + pos.x < floor.transform.position.x - floor.transform.localScale.x / 2) {
+					print ("Xpos too low: " + (tmpPos.x+pos.x));
+					tmpPos.x += Mathf.Abs(tmpPos.x);
+					print ("New xpos: " + (tmpPos.x+pos.x));
+				}
+
+				// If new random position is outside the room, then invert the random position so it's inside the room
+				if (tmpPos.z + pos.z > floor.transform.position.z + floor.transform.localScale.z / 2) {
+					print ("zpos too high: " + (tmpPos.z+pos.z));
+					tmpPos.z -= Mathf.Abs(tmpPos.z);
+					print ("New zpos: " + (tmpPos.z+pos.z));
+				} else if (tmpPos.z + pos.z < floor.transform.position.z - floor.transform.localScale.z / 2) {
+					print ("zpos too low: " + (tmpPos.z+pos.z));
+					tmpPos.z += Mathf.Abs(tmpPos.z);
+					print ("New zpos: " + (tmpPos.z+pos.z));
+				}
+
+				// If new random position is outside the room, then invert the random position so it's inside the room
+				if (tmpPos.y + pos.y > wall.transform.position.y + wall.transform.localScale.x / 2) {
+					print ("ypos too high: " + (tmpPos.y+pos.y));
+					tmpPos.y = wall.transform.position.y + wall.transform.localScale.y / 2 - sc.y / ballSizeModifier;
+					print ("New ypos " + (tmpPos.y+pos.y));
+				} else if (tmpPos.y + pos.y < floor.transform.position.y + floor.transform.localScale.y / 2) {
+					print ("ypos too low: " + (tmpPos.y+pos.y));
+					tmpPos.y += tmpPos.y;
+					print ("New ypos " + (tmpPos.y+pos.y));
+				}
 
 				// spawn the first ball
 				if (rngBonus <= 100 - bonusPercentage) {
-					tmpBall = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
+					tmpBall = Instantiate (ballPrefab, (pos) + tmpPos, Random.rotation) as GameObject;
 					// assign it a level higher
 					tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
 					tmpBall.GetComponent<ballBehaviour> ().Bonus = lvl + 1;
 					print ("LEVEL OF BALL IN SPAWN" + tmpBall.GetComponent<ballBehaviour> ().Level);
 				} else {
-					tmpBall = Instantiate (ballBonusPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
+					tmpBall = Instantiate (ballPrefab, (pos) + tmpPos, Random.rotation) as GameObject;
 					int multLvl = (tmpBall.GetComponent<ballBehaviour> ().Level + 1) * bonusMultiplier;
 					print ("multLvl" + multLvl);
 					tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
@@ -189,6 +245,12 @@ public class GameController : MonoBehaviour {
 				tmpBall.transform.localScale = sc / ballSizeModifier;
 				// then push it to the side
 				tmpBall.GetComponent<ballBehaviour> ().GiveVelocity(vel,maxRandomBallSpeed,true);
+
+				if (i == 0) {
+					invertVel = tmpBall.GetComponent<ballBehaviour> ().GetVelocity ();
+				} else {
+					tmpBall.GetComponent<ballBehaviour> ().SetVelocity (new Vector3(-invertVel.x,invertVel.y,-invertVel.z));
+				}
 
 			}
 

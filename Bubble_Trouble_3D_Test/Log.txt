@@ -1,3 +1,14 @@
+Commit 45
+* GameController.cs
+	- Make sure ball cannot spawn outside room
+	- If more than one ball they velocities opposite to first ball (x- and z-wise)
+* ballBehaviour.cs
+	- Give balls a random rotaion (and functionality to set and get velocities for opposite velocity in GameController.cs)
+* Scene in general:
+	- Removed friction from Ball_Bounce.
+	- Added a roof so balls cannot "jump" outside of the room
+	- Changed collision dedection to continous on the balls so they won't "slip" outside of the walls.
+
 Commit 44
 * GameController.cs
 	- For loop with controlled number of balls and tells ball to set random velocity

@@ -12,6 +12,10 @@ public class ballBehaviour : MonoBehaviour {
 	private int level = 1;
 	private int bonus = 1;
 
+	private float rotX = 0f;
+	private float rotY = 0f;
+	private float rotZ = 0f;
+
 	// Holds random number for bonus ball
 	//private int rngBonus;
 
@@ -29,7 +33,9 @@ public class ballBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-
+		rotX = Random.Range (-2.0f, 2.0f);
+		rotY = Random.Range (-2.0f, 2.0f);
+		rotZ = Random.Range (-2.0f, 2.0f);
 
 		// initialise the level
 		//level = 1;
@@ -41,6 +47,10 @@ public class ballBehaviour : MonoBehaviour {
 
 
 
+	}
+
+	void Update() {
+		transform.Rotate(rotX,rotY,rotZ);
 	}
 	
 	// make a public method that can add force to the rigidbody
@@ -83,12 +93,20 @@ public class ballBehaviour : MonoBehaviour {
 
 	public void GiveVelocity(Vector3 orgVel, float maxSpeed, bool canMoveY) {
 		if (canMoveY) {
-			Vector3 tmpVector = new Vector3 (Random.Range (-maxSpeed, maxSpeed + 1.0f), Random.Range (-maxSpeed, maxSpeed + 1.0f), Random.Range (0.0f, maxSpeed + 1.0f));
+			Vector3 tmpVector = new Vector3 (Random.Range (-maxSpeed, maxSpeed + 1.0f), Random.Range (maxSpeed/2.0f, maxSpeed + 1.0f), Random.Range (-maxSpeed, maxSpeed + 1.0f));
 			_rigidbody.velocity = orgVel+tmpVector;
 		} else {
-			Vector3 tmpVector = new Vector3 (Random.Range (-maxSpeed, maxSpeed + 1.0f), Random.Range (-maxSpeed, maxSpeed + 1.0f), Random.Range (0.0f, maxSpeed + 1.0f));
+			Vector3 tmpVector = new Vector3 (Random.Range (-maxSpeed, maxSpeed + 1.0f), 0.0f, Random.Range (-maxSpeed, maxSpeed + 1.0f));
 			_rigidbody.velocity = orgVel+tmpVector;
 		}
+	}
+
+	public Vector3 GetVelocity() {
+		return _rigidbody.velocity;
+	}
+
+	public void SetVelocity(Vector3 vel) {
+		_rigidbody.velocity = vel;
 	}
 
 
