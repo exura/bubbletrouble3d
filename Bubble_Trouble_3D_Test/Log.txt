@@ -1,3 +1,9 @@
+Commit 43
+* GameController.cs
+	- Using PlayerPrefs to save score across scenes (L143)
+* GameOverMenu.cs
+	- Using PlayerPrefs to retrieve score (L16)
+
 Commit 42
 * Created texture for Game Over Overlay
 * Created Game Over Scene

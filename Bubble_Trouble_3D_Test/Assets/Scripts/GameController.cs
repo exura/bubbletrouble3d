@@ -140,6 +140,7 @@ public class GameController : MonoBehaviour {
 	void playerIsHit(GameObject player) {
 //		SetGameOverText ();
 //		Time.timeScale = 0f; //Freezes game.
+		PlayerPrefs.SetInt("Player Score", score); // Saves score to be used across scenes.
 		Application.LoadLevel (2);
 
 	}
