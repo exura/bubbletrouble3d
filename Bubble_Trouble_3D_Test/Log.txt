@@ -1,3 +1,11 @@
+Commit 44
+* GameController.cs
+	- For loop with controlled number of balls and tells ball to set random velocity
+	- Assigns bonus multiplier to bonus in ballBehaviour, so that the level won't be affected by bonus
+* ballBehaviour.cs
+	- Implemented random velocity method
+	- Implemented bonus (which holds the number of points)
+
 Commit 43
 * GameController.cs
 	- Using PlayerPrefs to save score across scenes (L143)

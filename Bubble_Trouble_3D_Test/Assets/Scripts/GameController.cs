@@ -40,6 +40,12 @@ public class GameController : MonoBehaviour {
 	// minimumsize allowed of the ball -> it will stop spawning balls below this size
 	public float ballSizeMin = 1.0f;
 
+	// how fast the velocity of a spawned ball can be at max
+	public float maxRandomBallSpeed = 6.0f;
+
+	// how many balls per spawn
+	public int nbrOfBallsPerSpawn = 2;
+
 	// holds score
 	private int score;
 
@@ -109,6 +115,7 @@ public class GameController : MonoBehaviour {
 		Vector3 tempVel = ball.GetComponent<Rigidbody> ().velocity;
 		Vector3 tempScale = ball.transform.localScale;
 		int tempLevel = ball.GetComponent<ballBehaviour> ().Level;
+		int tempBonus = ball.GetComponent<ballBehaviour> ().Bonus;
 		print ("GET LEVEL OF BALL" + ball.GetComponent<ballBehaviour> ().Level);
 		print ("Ball DESTROYED LEVEL" + tempLevel);
 
@@ -123,7 +130,7 @@ public class GameController : MonoBehaviour {
 
 
 		// send in the points equal to the level of the ball
-		SetText (tempLevel);
+		SetText (tempBonus);
 
 		// spawn new balls
 		Spawn (tempPos, tempVel, tempScale, tempLevel);
@@ -154,80 +161,39 @@ public class GameController : MonoBehaviour {
 		// If the newly spawned ball is smaller than the minimum size allowed, it will skip the ballspawning
 		if (sc.x / ballSizeModifier >= ballSizeMin) {
 
+			for (int i = 0; i < nbrOfBallsPerSpawn; i++) {
 
-			// Transform into bonus ball if threshold is reached.
-			rngBonus = Random.Range (1, 100);
 
-			GameObject tmpBall;
-			GameObject tmpBall2;
+				// Transform into bonus ball if threshold is reached.
+				rngBonus = Random.Range (1, 100);
 
-			// spawn the first ball
-			if (rngBonus <= 100 - bonusPercentage) {
-				tmpBall = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
-				// assign it a level higher
-				tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
-				print ("LEVEL OF BALL IN SPAWN" + tmpBall.GetComponent<ballBehaviour> ().Level);
-			} else {
-				tmpBall = Instantiate (ballBonusPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
-				int multLvl = (tmpBall.GetComponent<ballBehaviour> ().Level + 1) * bonusMultiplier;
-				print ("multLvl" + multLvl);
-				tmpBall.GetComponent<ballBehaviour> ().Level = multLvl;
+				GameObject tmpBall;
+
+
+				// spawn the first ball
+				if (rngBonus <= 100 - bonusPercentage) {
+					tmpBall = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
+					// assign it a level higher
+					tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
+					tmpBall.GetComponent<ballBehaviour> ().Bonus = lvl + 1;
+					print ("LEVEL OF BALL IN SPAWN" + tmpBall.GetComponent<ballBehaviour> ().Level);
+				} else {
+					tmpBall = Instantiate (ballBonusPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
+					int multLvl = (tmpBall.GetComponent<ballBehaviour> ().Level + 1) * bonusMultiplier;
+					print ("multLvl" + multLvl);
+					tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
+					tmpBall.GetComponent<ballBehaviour> ().Bonus = multLvl;
+				}
+
+				// scale it with modifier
+				tmpBall.transform.localScale = sc / ballSizeModifier;
+				// then push it to the side
+				tmpBall.GetComponent<ballBehaviour> ().GiveVelocity(vel,maxRandomBallSpeed,true);
+
 			}
 
-
-			 // If threshold is set to 2% in inspector, RNG must give over 98 in value to create a bonus ball.
-				//tmpBall.GetComponent<ballBehaviour> ().bonusBall ();
-				//int multLvl = tmpBall.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
-				//print ("ball1 multLvl = " + multLvl); // Seems correct
-				
-				//print ("ball1 LEVEL = " + tmpBall.GetComponent<ballBehaviour> ().Level); // Seems correct
-
-
-			// scale it with modifier
-			tmpBall.transform.localScale = sc / ballSizeModifier;
-			// give it the original balls velocity
-			tmpBall.GetComponent<Rigidbody> ().velocity = vel;
-			// then push it to the side
-			tmpBall.GetComponent<ballBehaviour> ().Push (Vector3.right * 500 + Vector3.up * 2000);
-
-			// spawn the second ball
-
-			rngBonus = Random.Range (1, 100);
-			if (rngBonus <= 100 - bonusPercentage) {
-				tmpBall2 = Instantiate (ballPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
-				// assign it a level higher
-				tmpBall2.GetComponent<ballBehaviour> ().Level = lvl + 1;
-			} else {
-				tmpBall2 = Instantiate (ballBonusPrefab, (pos) + Vector3.right * 3, floor.transform.rotation) as GameObject;
-				int multLvl = (tmpBall2.GetComponent<ballBehaviour> ().Level +1) * bonusMultiplier;
-				print ("multLvl" + multLvl);
-				tmpBall2.GetComponent<ballBehaviour> ().Level = multLvl;
-			}
-
-			// Check for bonus and if bonusball multiply the points.
-
-			print ("RNG: " + rngBonus);
-			//print (rngBonus);
-
-//			if (rngBonus >= (100-bonusPercentage)) { // If threshold is set to 2% in inspector, RNG must give over 98 in value to create a bonus ball.
-//				print("Entered" + (100-bonusPercentage));
-//				tmpBall2.GetComponent<ballBehaviour> ().bonusBall ();
-//				int multLvl = tmpBall2.GetComponent<ballBehaviour> ().Level * bonusMultiplier;
-//				//print ("ball2 multLvl = " + multLvl); 
-//				tmpBall2.GetComponent<ballBehaviour> ().Level = multLvl;
-//				//print ("ball2 LEVEL = " + tmpBall2.GetComponent<ballBehaviour> ().Level);
-//			}
-//
-
-			// scale it with modifier
-			tmpBall2.transform.localScale = sc / ballSizeModifier;
-			// give it the original balls velocity
-			tmpBall2.GetComponent<Rigidbody> ().velocity = vel;
-			// then push it to the other side
-			tmpBall2.GetComponent<ballBehaviour> ().Push (Vector3.right * -500 + Vector3.up * 2000);
-
-			// add two new balls to the count of balls
-			ballsLeft = ballsLeft + 2;
+			// add nbrOfBallsPerSpawn new balls to the count of balls
+			ballsLeft = ballsLeft + nbrOfBallsPerSpawn;
 		}
 	}
 }

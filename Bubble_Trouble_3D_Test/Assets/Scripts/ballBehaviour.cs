@@ -10,6 +10,7 @@ public class ballBehaviour : MonoBehaviour {
 
 	// holds the level of the ball
 	private int level = 1;
+	private int bonus = 1;
 
 	// Holds random number for bonus ball
 	//private int rngBonus;
@@ -58,14 +59,35 @@ public class ballBehaviour : MonoBehaviour {
 	public int Level {
 		get 
 		{
-			print ("GET METHOD RETURNS: " + level);
 			return level;
 
 		}
 		set 
 		{
 			level = value;
-			print("BALLBEHAVIOUR LEVEL" + level);
+		}
+	}
+
+	// make a method that can get and set the bonus of the ball
+	public int Bonus {
+		get 
+		{
+			return bonus;
+
+		}
+		set 
+		{
+			bonus = value;
+		}
+	}
+
+	public void GiveVelocity(Vector3 orgVel, float maxSpeed, bool canMoveY) {
+		if (canMoveY) {
+			Vector3 tmpVector = new Vector3 (Random.Range (-maxSpeed, maxSpeed + 1.0f), Random.Range (-maxSpeed, maxSpeed + 1.0f), Random.Range (0.0f, maxSpeed + 1.0f));
+			_rigidbody.velocity = orgVel+tmpVector;
+		} else {
+			Vector3 tmpVector = new Vector3 (Random.Range (-maxSpeed, maxSpeed + 1.0f), Random.Range (-maxSpeed, maxSpeed + 1.0f), Random.Range (0.0f, maxSpeed + 1.0f));
+			_rigidbody.velocity = orgVel+tmpVector;
 		}
 	}
 
