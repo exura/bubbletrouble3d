@@ -2,23 +2,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Menu : MonoBehaviour {
+public class UIController : MonoBehaviour {
 
-	public Canvas MainCanvas;
+	public Canvas GameOverScreen;
+
 	//Public Canvas HighscoresCanvas; /When done, just duplicate main canvas and change to fit.
 	//Public Canvas CreditsCanvas; /When done, just duplicate main canvas and change to fit.
 
-	void Awake()
-	{
-		Cursor.lockState = CursorLockMode.None;
-		//HighscoresCanvas.enabled = false;
-		//CreditsCanvas.enabled = false;
-	}
-
-	public void LoadOn()
-	{
-		Application.LoadLevel (1);
-	}
-
-
+//	void Awake()
+//	{
+//		//GameOverScreen.enabled = false;
+//	}
+//
+//	public void LoadOn()
+//	{
+//		Application.LoadLevel (0);
+//	}
+//
+//
 }

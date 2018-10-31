@@ -1,3 +1,9 @@
+Commit 42
+* Created texture for Game Over Overlay
+* Created Game Over Scene
+* Created Canvas Objects for Game Over
+* Created Game Over Overlay script
+
 Commit 41
 * Created texture for Main Menu
 * Created Main Menu Scene

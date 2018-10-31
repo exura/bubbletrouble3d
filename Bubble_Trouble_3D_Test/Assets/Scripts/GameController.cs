@@ -138,8 +138,9 @@ public class GameController : MonoBehaviour {
 
 	// Method for when player is hit, subscribed to event hitPlayer
 	void playerIsHit(GameObject player) {
-		SetGameOverText ();
-		Time.timeScale = 0f; //Freezes game.
+//		SetGameOverText ();
+//		Time.timeScale = 0f; //Freezes game.
+		Application.LoadLevel (2);
 
 	}
 
