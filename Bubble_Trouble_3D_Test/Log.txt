@@ -1,3 +1,9 @@
+Commit 46
+* Rearranged all assets
+	- still missing to rearrange standard assets as they are part of namespaces
+* Fixed(?) lightning in main scene
+* Moved overlays in menus to fit with the screen (still needs to find a solution how to make the background image scale to camera aspect ratio)
+
 Commit 45
 * GameController.cs
 	- Make sure ball cannot spawn outside room
