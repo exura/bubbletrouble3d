@@ -71,6 +71,8 @@ public class fpsInput : MonoBehaviour {
 		// script for what happens when firing
 		if (Input.GetButtonDown ("Fire1")) {
 
+			DelegatesAndEvents.ShotFired(1);
+
 			// create an instance of a bullet at bullet emitter position and at the same rotation as the bullet emitter
 			GameObject temporaryBulletHandler;
 			temporaryBulletHandler = Instantiate (bulletPrefab, bulletEmitter.transform.position, bulletEmitter.transform.rotation) as GameObject;

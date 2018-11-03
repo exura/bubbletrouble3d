@@ -1,3 +1,11 @@
+Commit 47
+* Added statistics (nbr shots fired, accuracy, and some text to rate the performance)
+	- added event for shots fired (in DeletagesAndEvents, trigger event in FPSInput, handle event in GameController)
+	- added text for shots fired and attached to GameController
+	- added text for accuracy and attached to GameController
+	- added text for rank and attached to GameController	
+* Fixed roof so that balls cannot escape (it could with the old collider)
+
 Commit 46
 * Rearranged all assets
 	- still missing to rearrange standard assets as they are part of namespaces

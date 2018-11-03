@@ -34,6 +34,12 @@ public class GameController : MonoBehaviour {
 
 	public Text gameOverText;
 
+	public Text shotsFiredText;
+
+	public Text accuracyText;
+
+	public Text rankText;
+
 	// how high the balls should spawn with respect to the floor
 	public float ballSpawnHeight = 10;
 
@@ -51,6 +57,9 @@ public class GameController : MonoBehaviour {
 
 	// holds score
 	private int score;
+	private int nbrShotsFired;
+	private float accuracyPct;
+	private int nbrOfBallsHit;
 
 	// holds how many balls left -> once it reaches zero the game is won
 	private int ballsLeft;
@@ -64,6 +73,9 @@ public class GameController : MonoBehaviour {
 
 		// start the game with a score of zero
 		score = 0;
+		nbrShotsFired = 0;
+		accuracyPct = 0.0f;
+		nbrOfBallsHit = 0;
 
 		// display the score text (we havent earned any score yet, so send 0
 		SetText (0);
@@ -81,6 +93,7 @@ public class GameController : MonoBehaviour {
 		// IMPORTANT: YOU ALSO NEED THE SAME IN AN ONDISABLE-FUNCTION OTHERWISE YOU WILL END UP WITH MEMORY LEAKS!!
 		DelegatesAndEvents.onBallDestroyed += BallIsDestroyed; // + sign means we subscribe to the event, BallIsDestroyed is the method this class has implemented to handle the event onBallDestroyed
 		DelegatesAndEvents.hitPlayer += playerIsHit; //Subscription to hitPlayer
+		DelegatesAndEvents.shotFired += ShotIsFired; //Subscription when shot is fired
 	
 	}
 		
@@ -88,6 +101,7 @@ public class GameController : MonoBehaviour {
 	void OnDisable() {
 		DelegatesAndEvents.onBallDestroyed -= BallIsDestroyed; // - sign means we unsubscribe to the event
 		DelegatesAndEvents.hitPlayer -= playerIsHit;
+		DelegatesAndEvents.shotFired -= ShotIsFired; 
 	}
 
 	// Set the score-text given that we are adding points
@@ -113,21 +127,20 @@ public class GameController : MonoBehaviour {
 
 	// this is the method implemented to handle the event onBallDestroyed
 	void BallIsDestroyed(GameObject ball) {
+		nbrOfBallsHit++;
+		SetStatisticsText ();
 		// We want to take the position, velocity, scale and level of the ball that was just destroyed
 		Vector3 tempPos = ball.transform.position;
 		Vector3 tempVel = ball.GetComponent<Rigidbody> ().velocity;
 		Vector3 tempScale = ball.transform.localScale;
 		int tempLevel = ball.GetComponent<ballBehaviour> ().Level;
 		int tempBonus = ball.GetComponent<ballBehaviour> ().Bonus;
-		print ("GET LEVEL OF BALL" + ball.GetComponent<ballBehaviour> ().Level);
-		print ("Ball DESTROYED LEVEL" + tempLevel);
 
 		// then destroy the ball so we don't accidentally spawn the new balls inside the ball being destroyed
 		Destroy (ball);
 
 		GameObject explosion = Instantiate (explo,tempPos, floor.transform.rotation) as GameObject;
 
-		print ("DESTROYED NR: " + ballsLeft);
 		// countdown the number of balls alive
 		ballsLeft--;
 
@@ -155,6 +168,63 @@ public class GameController : MonoBehaviour {
 		PlayerPrefs.SetInt("Player Score", score); // Saves score to be used across scenes.
 		Application.LoadLevel (2);
 
+	}
+
+	void ShotIsFired(int nbr) {
+		nbrShotsFired = nbrShotsFired + nbr;
+		SetStatisticsText ();
+	}
+
+	void SetStatisticsText() {
+		if(nbrShotsFired>0) {
+			accuracyPct = (float)nbrOfBallsHit / (float)nbrShotsFired*100;
+			print ("nbr of balls hit: " + nbrOfBallsHit);
+			print ("nbr of shots fired: " + nbrShotsFired);
+			print ("accuracy pct: " + accuracyPct);
+
+			shotsFiredText.text = "Number of shots fired: " + nbrShotsFired.ToString ();
+			accuracyText.text = "Accuracy: " + accuracyPct.ToString ("F2") + "%";
+
+			shotsFiredText.enabled = true;
+			accuracyText.enabled = true;
+			SetRankText ();
+		}
+	}
+
+	void SetRankText() {
+		rankText.enabled = true;
+
+		if (nbrShotsFired == 0) {
+			rankText.text = "Need help to find the fire button?";
+		} else if (nbrShotsFired <= 10 && nbrOfBallsHit == 0) {
+			rankText.text = "Aim at the balls!";
+		} else if (nbrShotsFired <= 20 && nbrOfBallsHit == 0) {
+			rankText.text = "Keep trying!";
+		} else if (nbrShotsFired <= 50 && nbrOfBallsHit == 0) {
+			rankText.text = "You need glasses?";
+		} else if (nbrShotsFired <= 100 && nbrOfBallsHit == 0) {
+			rankText.text = "I'm not calling you n00b ... yet...";
+		} else if (nbrShotsFired <= 200 && nbrOfBallsHit == 0) {
+			rankText.text = "Maybe you should try another game?";
+		} else if (nbrShotsFired > 200 && nbrOfBallsHit == 0) {
+			rankText.text = "Have you heard of a game called Diablo?";
+		} else if (accuracyPct >= 100.0f) {
+			rankText.text = "Your aim is Godlike!";
+		} else if (accuracyPct >= 80.0f) {
+			rankText.text = "Your aim is sharp!";
+		} else if (accuracyPct >= 20.0f) {
+			rankText.text = "Your aim is ok!";
+		} else if (accuracyPct >= 10.0f) {
+			rankText.text = "Who said this was easy?";
+		} else if (accuracyPct >= 5.0f) {
+			rankText.text = "If you get closer to the ball you might hit it!";
+		} else if (accuracyPct >= 0.0f) {
+			rankText.text = "The balls get smaller and so does your LUCK!";
+		} else {
+			rankText.text = "This was not supposed to happen!";
+		}
+
+		
 	}
 
 	// Spawn method handles spawning of new balls
@@ -232,11 +302,9 @@ public class GameController : MonoBehaviour {
 					// assign it a level higher
 					tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
 					tmpBall.GetComponent<ballBehaviour> ().Bonus = lvl + 1;
-					print ("LEVEL OF BALL IN SPAWN" + tmpBall.GetComponent<ballBehaviour> ().Level);
 				} else {
 					tmpBall = Instantiate (ballPrefab, (pos) + tmpPos, Random.rotation) as GameObject;
 					int multLvl = (tmpBall.GetComponent<ballBehaviour> ().Level + 1) * bonusMultiplier;
-					print ("multLvl" + multLvl);
 					tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
 					tmpBall.GetComponent<ballBehaviour> ().Bonus = multLvl;
 				}

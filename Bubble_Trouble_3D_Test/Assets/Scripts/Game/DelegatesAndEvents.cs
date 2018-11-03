@@ -11,11 +11,15 @@ public class DelegatesAndEvents : MonoBehaviour {
 	// first define the delegate (a container for a function)
 	public delegate void BallEventHandler (GameObject ball);
 	public delegate void PlayerEventHandler (GameObject player); 
+	public delegate void ShotFiredEvent (int nbr); 
 
 	// then the event
-	public static event BallEventHandler onBallDestroyed;
+	public static event BallEventHandler onBallDestroyed; // event to handle when ball is destroyed
 
-	public static event PlayerEventHandler hitPlayer; // Event to handle when ball hits a player.
+	public static event PlayerEventHandler hitPlayer; // Event to handle when ball hits a player
+
+	public static event ShotFiredEvent shotFired;
+
 
 	//2. trigger the events
 	public static void BallDestroyed(GameObject ball)
@@ -29,6 +33,13 @@ public class DelegatesAndEvents : MonoBehaviour {
 	{
 		if (hitPlayer != null) {
 			hitPlayer (player);
+		}
+	}
+
+	public static void ShotFired(int nbr)
+	{
+		if (shotFired != null) {
+			shotFired (nbr);
 		}
 	}
 
