@@ -8,6 +8,8 @@ TagManager:
   - Floor
   - Wall
   - Ball
+  - Fire
+  - PickUp
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour {
 
 	[SerializeField] private GameObject ballBonusPrefab;
 
+	[SerializeField] private GameObject pickUpPrefab;
+
 
 	// holds reference to the explosion
 	[SerializeField] private GameObject explo;
@@ -151,6 +153,8 @@ public class GameController : MonoBehaviour {
 		// spawn new balls
 		Spawn (tempPos, tempVel, tempScale, tempLevel);
 
+		SpawnPickup (tempPos);
+
 		Destroy (explosion, 5.0f);
 
 		// if no new balls are spawned, we have won the game
@@ -230,16 +234,12 @@ public class GameController : MonoBehaviour {
 	// Spawn method handles spawning of new balls
 	void Spawn(Vector3 pos, Vector3 vel, Vector3 sc, int lvl) {
 
-
-
-		print ("SPAWN LVL SENT IN" + lvl);
 		// If the newly spawned ball is smaller than the minimum size allowed, it will skip the ballspawning
 		if (sc.x / ballSizeModifier >= ballSizeMin && sc.y / ballSizeModifier >= ballSizeMin && sc.z / ballSizeModifier >= ballSizeMin) {
 
 			Vector3 invertVel = Vector3.zero;
 
 			for (int i = 0; i < nbrOfBallsPerSpawn; i++) {
-
 
 				// Transform into bonus ball if threshold is reached.
 				int rngBonus = Random.Range (1, 100);
@@ -324,6 +324,14 @@ public class GameController : MonoBehaviour {
 
 			// add nbrOfBallsPerSpawn new balls to the count of balls
 			ballsLeft = ballsLeft + nbrOfBallsPerSpawn;
+		}
+	}
+
+	void SpawnPickup(Vector3 pos) {
+		int rng = 100;
+
+		if (rng <= 100) {
+			GameObject somePickup = Instantiate (pickUpPrefab, pos, floor.transform.rotation);
 		}
 	}
 }

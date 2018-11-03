@@ -1871,6 +1871,8 @@ MonoBehaviour:
   ballPrefab: {fileID: 1548841064537174, guid: 85e3f32798f5794478534c928fb1d1ac, type: 2}
   ballBonusPrefab: {fileID: 1341000957023182, guid: 61c9cd116c297fd46a7e288be32b56fb,
     type: 2}
+  pickUpPrefab: {fileID: 1955420526606184, guid: efa5216a535e86c46b2cbed0ec85659a,
+    type: 2}
   explo: {fileID: 1259543497422840, guid: 6eb80915d51e48e40b73a2e61dae28a3, type: 2}
   floor: {fileID: 158568062}
   wall: {fileID: 1535387240}

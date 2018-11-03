@@ -1,3 +1,8 @@
+Commit 49
+* Added some simple pickups (doesn't have any effect yet)
+	- made a new prefab in prefabs/pickup
+	- made a new material in material/pickup
+
 Commit 48
 * Fixed Background scaling to aspect ratio
 
