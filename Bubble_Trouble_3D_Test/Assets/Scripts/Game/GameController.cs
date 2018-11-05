@@ -68,7 +68,9 @@ public class GameController : MonoBehaviour {
 
 	private int rngBonus; // Holds reference to RNG
 
-	public int bonusPercentage = 2; // Threshold for bonus ball (probability that a ball becomes a bonus ball)
+	public int bonusPercentage = 20; // Threshold for bonus ball (probability that a ball becomes a bonus ball)
+
+	public int pickupPercentage = 20;
 
 	// Use this for initialization
 	void Start () {
@@ -242,20 +244,20 @@ public class GameController : MonoBehaviour {
 			for (int i = 0; i < nbrOfBallsPerSpawn; i++) {
 
 				// Transform into bonus ball if threshold is reached.
-				int rngBonus = Random.Range (1, 100);
+				int rngBonus = Random.Range (1,100);
 
 				GameObject tmpBall;
 
 				int xRand;
 				int zRand;
 
-				if (Random.Range (0, 100) <= 49) {
+				if (Random.Range (1, 100) <= 50) {
 					xRand = -1;
 				} else {
 					xRand = 1;
 				}
 
-				if (Random.Range (0, 100) <= 49) {
+				if (Random.Range (1, 100) <= 50) {
 					zRand = -1;
 				} else {
 					zRand = 1;
@@ -297,8 +299,8 @@ public class GameController : MonoBehaviour {
 				}
 
 				// spawn the first ball
-				if (rngBonus <= 100 - bonusPercentage) {
-					tmpBall = Instantiate (ballPrefab, (pos) + tmpPos, Random.rotation) as GameObject;
+				if (rngBonus <= bonusPercentage) {
+					tmpBall = Instantiate (ballBonusPrefab, (pos) + tmpPos, Random.rotation) as GameObject;
 					// assign it a level higher
 					tmpBall.GetComponent<ballBehaviour> ().Level = lvl + 1;
 					tmpBall.GetComponent<ballBehaviour> ().Bonus = lvl + 1;
@@ -328,9 +330,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	void SpawnPickup(Vector3 pos) {
-		int rng = 100;
+		int rng = Random.Range (1, 100);
 
-		if (rng <= 100) {
+		if (rng <= pickupPercentage) {
 			GameObject somePickup = Instantiate (pickUpPrefab, pos, floor.transform.rotation);
 		}
 	}

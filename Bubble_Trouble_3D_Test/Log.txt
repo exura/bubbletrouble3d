@@ -1,3 +1,7 @@
+Commit 50
+* Fixed bonus ball and pickup rate (in GameController.cs)
+and remapped lighting again
+
 Commit 49
 * Added some simple pickups (doesn't have any effect yet)
 	- made a new prefab in prefabs/pickup
