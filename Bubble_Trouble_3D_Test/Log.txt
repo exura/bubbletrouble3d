@@ -1,3 +1,6 @@
+Commit 51
+* Cleaned standard assets and moved all needed resources to respective folders (explosion are under corresponing Effects-folders).
+
 Commit 50
 * Fixed bonus ball and pickup rate (in GameController.cs)
 and remapped lighting again
