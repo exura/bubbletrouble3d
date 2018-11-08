@@ -22,6 +22,7 @@ public class playerTrigger : MonoBehaviour {
 
 		if (other.tag == "PickUp") {							// Only check collision with objects with correct Tag
 			Destroy(other.transform.parent.gameObject);
+			DelegatesAndEvents.HealthPickedUp (1);
 		}
 
 	}

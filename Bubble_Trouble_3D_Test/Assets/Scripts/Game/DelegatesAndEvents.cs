@@ -12,13 +12,16 @@ public class DelegatesAndEvents : MonoBehaviour {
 	public delegate void BallEventHandler (GameObject ball);
 	public delegate void PlayerEventHandler (GameObject player); 
 	public delegate void ShotFiredEvent (int nbr); 
+	public delegate void HealthPickupEvent (int nbr); 
 
 	// then the event
 	public static event BallEventHandler onBallDestroyed; // event to handle when ball is destroyed
 
 	public static event PlayerEventHandler hitPlayer; // Event to handle when ball hits a player
 
-	public static event ShotFiredEvent shotFired;
+	public static event ShotFiredEvent shotFired; // Event to handle when shot is fired
+
+	public static event HealthPickupEvent healthPickedUp; // Event to handle when health is picked up
 
 
 	//2. trigger the events
@@ -40,6 +43,13 @@ public class DelegatesAndEvents : MonoBehaviour {
 	{
 		if (shotFired != null) {
 			shotFired (nbr);
+		}
+	}
+
+	public static void HealthPickedUp(int nbr)
+	{
+		if (healthPickedUp != null) {
+			healthPickedUp (nbr);
 		}
 	}
 

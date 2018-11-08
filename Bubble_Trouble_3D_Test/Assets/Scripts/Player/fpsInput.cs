@@ -28,6 +28,9 @@ public class fpsInput : MonoBehaviour {
 	// gravity applied on the character
 	public float gravity = -9.8f;
 
+	// health of player
+	private int health = 3;
+
 	// the character controller
 	private CharacterController _charController;
 
@@ -85,4 +88,19 @@ public class fpsInput : MonoBehaviour {
 		}
 
 	}
+
+	// make a method that can get and set the health of the player
+	public int Health {
+		get 
+		{
+			return health;
+
+		}
+		set 
+		{
+			health = value;
+		}
+	}
+
+
 }

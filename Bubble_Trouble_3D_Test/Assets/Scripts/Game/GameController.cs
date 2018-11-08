@@ -42,6 +42,10 @@ public class GameController : MonoBehaviour {
 
 	public Text rankText;
 
+	public Text playerHealthText;
+
+	public Text warningText;
+
 	// how high the balls should spawn with respect to the floor
 	public float ballSpawnHeight = 10;
 
@@ -72,6 +76,8 @@ public class GameController : MonoBehaviour {
 
 	public int pickupPercentage = 20;
 
+	private int playerHealth;
+
 	// Use this for initialization
 	void Start () {
 
@@ -93,11 +99,16 @@ public class GameController : MonoBehaviour {
 		//and update the balltracker that we have one ball now -- if this is forgotten we win immediately
 		ballsLeft++;
 
+		// get the health of the player
+		playerHealth = player.GetComponent<fpsInput>().Health;
+		SetPlayerHealthText ();
+
 		// Tell gamecontroller to subscribe for the event that a ball is spawned
 		// IMPORTANT: YOU ALSO NEED THE SAME IN AN ONDISABLE-FUNCTION OTHERWISE YOU WILL END UP WITH MEMORY LEAKS!!
 		DelegatesAndEvents.onBallDestroyed += BallIsDestroyed; // + sign means we subscribe to the event, BallIsDestroyed is the method this class has implemented to handle the event onBallDestroyed
 		DelegatesAndEvents.hitPlayer += playerIsHit; //Subscription to hitPlayer
 		DelegatesAndEvents.shotFired += ShotIsFired; //Subscription when shot is fired
+		DelegatesAndEvents.healthPickedUp += HealthIsPickedUp; //Subscription when health is picked up
 	
 	}
 		
@@ -105,7 +116,8 @@ public class GameController : MonoBehaviour {
 	void OnDisable() {
 		DelegatesAndEvents.onBallDestroyed -= BallIsDestroyed; // - sign means we unsubscribe to the event
 		DelegatesAndEvents.hitPlayer -= playerIsHit;
-		DelegatesAndEvents.shotFired -= ShotIsFired; 
+		DelegatesAndEvents.shotFired -= ShotIsFired;
+		DelegatesAndEvents.healthPickedUp -= HealthIsPickedUp;
 	}
 
 	// Set the score-text given that we are adding points
@@ -171,8 +183,16 @@ public class GameController : MonoBehaviour {
 	void playerIsHit(GameObject player) {
 //		SetGameOverText ();
 //		Time.timeScale = 0f; //Freezes game.
-		PlayerPrefs.SetInt("Player Score", score); // Saves score to be used across scenes.
-		Application.LoadLevel (2);
+		playerHealth--;
+		SetPlayerHealthText ();
+
+		if (playerHealth >= 1) {
+			player.GetComponent<fpsInput> ().Health = playerHealth;
+			SetWarningText ();
+		} else {
+			PlayerPrefs.SetInt ("Player Score", score); // Saves score to be used across scenes.
+			Application.LoadLevel (2);
+		}
 
 	}
 
@@ -229,8 +249,22 @@ public class GameController : MonoBehaviour {
 		} else {
 			rankText.text = "This was not supposed to happen!";
 		}
+	}
 
-		
+	void SetPlayerHealthText() {
+		playerHealthText.text = "Health: " + playerHealth.ToString ();
+	}
+
+	void SetWarningText() {
+		warningText.text = "Watch out! You only have " + playerHealth.ToString () + " HP left!";
+		warningText.enabled = true;
+		StartCoroutine (StopDisplayingWarning());
+	}
+
+	IEnumerator StopDisplayingWarning()
+	{
+		yield return new WaitForSeconds (3);
+		warningText.enabled = false;
 	}
 
 	// Spawn method handles spawning of new balls
@@ -335,5 +369,10 @@ public class GameController : MonoBehaviour {
 		if (rng <= pickupPercentage) {
 			GameObject somePickup = Instantiate (pickUpPrefab, pos, floor.transform.rotation);
 		}
+	}
+
+	void HealthIsPickedUp(int nbr) {
+		playerHealth = playerHealth + nbr;
+		SetPlayerHealthText ();
 	}
 }
