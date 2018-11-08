@@ -1,3 +1,14 @@
+Commit 55
+* Created minimap (radar)
+	- Added camera above the player that only checks layer minimap
+	- Added cubes as children to walls, put collider off, changed layer to minimap and added a minimap material
+	- Added sphere as child to player, put collider off, changed layer to minimap and added a minimap material
+	- Same procedure for ball, bonus ball and pickup
+	- Created a raw ui image and a rendered texture connected (check textures/minimap) and made it a child of a regular image with a round texture
+
+Commit 53 + 54
+* Test to work in main at the same time and merge
+
 Commit 52
 * Added health system (simple UI) and added health to pickups.
 	-- Event added in DelegatesAndEvents
