@@ -78,11 +78,6 @@ public class GameController : MonoBehaviour {
 
 	private int playerHealth;
 
-	void Awake() {
-		PlayerPrefs.SetInt ("Player Score", 0);
-	}
-
-
 	// Use this for initialization
 	void Start () {
 
@@ -106,7 +101,7 @@ public class GameController : MonoBehaviour {
 
 		// get the health of the player
 		playerHealth = player.GetComponent<fpsInput>().Health;
-		//SetPlayerHealthText ();
+		SetPlayerHealthText ();
 
 		// Tell gamecontroller to subscribe for the event that a ball is spawned
 		// IMPORTANT: YOU ALSO NEED THE SAME IN AN ONDISABLE-FUNCTION OTHERWISE YOU WILL END UP WITH MEMORY LEAKS!!
@@ -132,7 +127,7 @@ public class GameController : MonoBehaviour {
 		score = score + points;
 
 		// Update the text
-		//scoreText.text = "Score: " + score.ToString ();
+		scoreText.text = "Score: " + score.ToString ();
 
 	}
 
@@ -378,6 +373,6 @@ public class GameController : MonoBehaviour {
 
 	void HealthIsPickedUp(int nbr) {
 		playerHealth = playerHealth + nbr;
-		//SetPlayerHealthText ();
+		SetPlayerHealthText ();
 	}
 }
